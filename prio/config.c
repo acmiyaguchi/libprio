@@ -23,8 +23,9 @@ PrioConfig_maxDataFields(void)
 }
 
 PrioConfig
-PrioConfig_new(int n_fields, PublicKey server_a, PublicKey server_b,
-               const unsigned char* batch_id, unsigned int batch_id_len)
+PrioConfig_builder(int n_fields, PublicKey server_a, PublicKey server_b,
+                   const unsigned char* batch_id, unsigned int batch_id_len,
+                   prio_afe_t afe_type, unsigned int lambda)
 {
   SECStatus rv = SECSuccess;
   PrioConfig cfg = malloc(sizeof(*cfg));
@@ -33,6 +34,8 @@ PrioConfig_new(int n_fields, PublicKey server_a, PublicKey server_b,
 
   cfg->batch_id = NULL;
   cfg->batch_id_len = batch_id_len;
+  cfg->afe_type = afe_type;
+  cfg->lambda = lambda;
   cfg->server_a_pub = server_a;
   cfg->server_b_pub = server_b;
   cfg->num_data_fields = n_fields;
@@ -65,6 +68,37 @@ cleanup:
   }
 
   return cfg;
+}
+
+PrioConfig
+PrioConfig_new(int n_fields, PublicKey server_a, PublicKey server_b,
+               const unsigned char* batch_id, unsigned int batch_id_len)
+{
+  return PrioConfig_builder(
+    n_fields,
+    server_a,
+    server_b,
+    batch_id,
+    batch_id_len,
+    BOOLEAN_SUM,
+    0
+  );
+}
+
+PrioConfig
+PrioConfig_newOR(int n_fields, PublicKey server_a, PublicKey server_b,
+               const unsigned char* batch_id, unsigned int batch_id_len,
+               unsigned int lambda)
+{
+    return PrioConfig_builder(
+    n_fields,
+    server_a,
+    server_b,
+    batch_id,
+    batch_id_len,
+    BOOLEAN_OR,
+    lambda
+  );
 }
 
 PrioConfig

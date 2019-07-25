@@ -108,6 +108,10 @@ int PrioConfig_maxDataFields(void);
  */
 PrioConfig PrioConfig_newTest(int nFields);
 
+PrioConfig PrioConfig_newOR(int nFields, PublicKey serverA, PublicKey serverB,
+                          const unsigned char* batchId,
+                          unsigned int batchIdLen,
+                          unsigned int lambda);
 /*
  * We use the PublicKey and PrivateKey objects for public-key encryption. Each
  * Prio server has an associated public key, and the clients use these keys to

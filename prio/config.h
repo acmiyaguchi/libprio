@@ -13,11 +13,19 @@
 
 #include "mparray.h"
 
+typedef enum {
+  BOOLEAN_SUM = 0,
+  BOOLEAN_OR = 1,
+} prio_afe_t;
+
 struct prio_config
 {
   int num_data_fields;
   unsigned char* batch_id;
   unsigned int batch_id_len;
+  prio_afe_t afe_type;
+
+  unsigned int lambda;
 
   PublicKey server_a_pub;
   PublicKey server_b_pub;

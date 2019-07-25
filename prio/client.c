@@ -54,6 +54,8 @@ data_polynomial_evals(const_PrioConfig cfg, const_MPArray data_in,
   P_CHECKC(rand_int(&points_f->data[0], mod));
   MP_CHECKC(mp_copy(&points_f->data[0], const_term));
 
+  // TODO: Apply the affine-aggregatable encoding for cfg->afe_type
+
   // Set other values of f(x)
   for (int i = 1; i < n; i++) {
     MP_CHECKC(mp_copy(&data_in->data[i - 1], &points_f->data[i]));
