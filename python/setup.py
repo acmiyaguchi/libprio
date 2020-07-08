@@ -38,7 +38,7 @@ extension_mod = Extension(
 
 setup(
     name="prio",
-    version="1.0",
+    version="1.1",
     description="An interface to libprio",
     author="Anthony Miyaguchi",
     author_email="amiyaguchi@mozilla.com",
